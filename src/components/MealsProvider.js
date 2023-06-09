@@ -1,23 +1,28 @@
-import React, { useState } from "react";
+// src/components/MealsProvider/MealsProvider.js
+import React, { createContext, useState } from 'react';
 
-const todaysMeals = [
-    { id: 1, name: 'Baked Beans' },
-    { id: 2, name: 'Baked Sweet Potatoes' },
-    { id: 3, name: 'Baked Potatoes' },
-]
+export const MealsContext = createContext();
 
-const MealsProvider = () => {
-    const [meals, setMeals] = useState(todaysMeals);
+const MealsProvider = ({ children }) => {
+  const [todaysMeals, setTodaysMeals] = useState([
+    { id: 1, name: 'Breakfast', ticked: false },
+    { id: 2, name: 'Lunch', ticked: false },
+    { id: 3, name: 'Dinner', ticked: false },
+  ]);
 
-    const tickMeal = () => {
+  const tickMeal = (mealId) => {
+    setTodaysMeals((prevMeals) =>
+      prevMeals.map((meal) =>
+        meal.id === mealId ? { ...meal, ticked: !meal.ticked } : meal
+      )
+    );
+  };
 
-    }
-
-    return (
-        <div>
-            
-        </div>
-    )
+  return (
+    <MealsContext.Provider value={{ todaysMeals, tickMeal }}>
+      {children}
+    </MealsContext.Provider>
+  );
 };
 
 export default MealsProvider;
