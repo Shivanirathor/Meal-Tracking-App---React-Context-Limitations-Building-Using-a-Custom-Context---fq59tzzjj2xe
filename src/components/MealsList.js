@@ -1,25 +1,22 @@
-// src/components/MealsList/MealsList.js
-import React, { useContext } from 'react';
-import { MealsContext } from '../MealsProvider/MealsProvider';
+
+import React from "react";
+import { useContext } from "react";
+import { MealsContext } from "./MealsProvider";
 
 const MealsList = () => {
-  const { todaysMeals, tickMeal } = useContext(MealsContext);
 
-  return (
-    <div>
-      <h2>Meals List</h2>
-      {todaysMeals.map((meal) => (
-        <div key={meal.id}>
-          <input
-            type="checkbox"
-            checked={meal.ticked}
-            onChange={() => tickMeal(meal.id)}
-          />
-          <span>{meal.name}</span>
+    const { meals, tickMeal } = useContext(MealsContext);
+
+    return (
+        <div>
+            <h2>Meals:</h2>
+            <ul>
+                {meals.map((meal) => {
+                    return <li key={meal.id}><input type="checkbox" value={meal.id} checked={meal.checked} onChange={tickMeal} />{meal.name}</li>
+                })}
+            </ul>
         </div>
-      ))}
-    </div>
-  );
-};
+    )
+}
 
 export default MealsList;
