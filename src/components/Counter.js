@@ -1,17 +1,18 @@
-// src/components/Counter/Counter.js
-import React, { useContext } from 'react';
-import { MealsContext } from '../MealsProvider/MealsProvider';
+import React from "react";
+import { useContext } from "react";
+import { MealsContext } from "./MealsProvider";
 
 const Counter = () => {
-  const { todaysMeals } = useContext(MealsContext);
-  const remainingMeals = todaysMeals.filter((meal) => !meal.ticked);
 
-  return (
-    <div>
-      <h2>Counter</h2>
-      <p>Remaining Meals: {remainingMeals.length}</p>
-    </div>
-  );
-};
+    const { meals } = useContext(MealsContext);
+
+    const remainingMealsCount = meals.filter((meal) => meal.checked === false).length;
+
+    return (
+        <div>
+            <h3>Meals Remaining: {remainingMealsCount}</h3>
+        </div>
+    )
+}
 
 export default Counter;
